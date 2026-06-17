@@ -1,0 +1,32 @@
+// ⚠️  Arquivo GERADO por scripts/atualizar-dados.ts — não edite à mão.
+import type { Estado } from "../tipos/tipos";
+
+export const estados: Estado[] = [
+  {codigoUf:11,uf:"RO",nome:"Rondônia",latitude:-10.83,longitude:-63.34,regiao:"Norte"},
+  {codigoUf:12,uf:"AC",nome:"Acre",latitude:-8.77,longitude:-70.55,regiao:"Norte"},
+  {codigoUf:13,uf:"AM",nome:"Amazonas",latitude:-3.47,longitude:-65.1,regiao:"Norte"},
+  {codigoUf:14,uf:"RR",nome:"Roraima",latitude:1.99,longitude:-61.33,regiao:"Norte"},
+  {codigoUf:15,uf:"PA",nome:"Pará",latitude:-3.79,longitude:-52.48,regiao:"Norte"},
+  {codigoUf:16,uf:"AP",nome:"Amapá",latitude:1.41,longitude:-51.77,regiao:"Norte"},
+  {codigoUf:17,uf:"TO",nome:"Tocantins",latitude:-9.46,longitude:-48.26,regiao:"Norte"},
+  {codigoUf:21,uf:"MA",nome:"Maranhão",latitude:-5.42,longitude:-45.44,regiao:"Nordeste"},
+  {codigoUf:22,uf:"PI",nome:"Piauí",latitude:-6.6,longitude:-42.28,regiao:"Nordeste"},
+  {codigoUf:23,uf:"CE",nome:"Ceará",latitude:-5.2,longitude:-39.53,regiao:"Nordeste"},
+  {codigoUf:24,uf:"RN",nome:"Rio Grande do Norte",latitude:-5.81,longitude:-36.59,regiao:"Nordeste"},
+  {codigoUf:25,uf:"PB",nome:"Paraíba",latitude:-7.28,longitude:-36.72,regiao:"Nordeste"},
+  {codigoUf:26,uf:"PE",nome:"Pernambuco",latitude:-8.38,longitude:-37.86,regiao:"Nordeste"},
+  {codigoUf:27,uf:"AL",nome:"Alagoas",latitude:-9.62,longitude:-36.82,regiao:"Nordeste"},
+  {codigoUf:28,uf:"SE",nome:"Sergipe",latitude:-10.57,longitude:-37.45,regiao:"Nordeste"},
+  {codigoUf:29,uf:"BA",nome:"Bahia",latitude:-13.29,longitude:-41.71,regiao:"Nordeste"},
+  {codigoUf:31,uf:"MG",nome:"Minas Gerais",latitude:-18.1,longitude:-44.38,regiao:"Sudeste"},
+  {codigoUf:32,uf:"ES",nome:"Espírito Santo",latitude:-19.19,longitude:-40.34,regiao:"Sudeste"},
+  {codigoUf:33,uf:"RJ",nome:"Rio de Janeiro",latitude:-22.25,longitude:-42.66,regiao:"Sudeste"},
+  {codigoUf:35,uf:"SP",nome:"São Paulo",latitude:-22.19,longitude:-48.79,regiao:"Sudeste"},
+  {codigoUf:41,uf:"PR",nome:"Paraná",latitude:-24.89,longitude:-51.55,regiao:"Sul"},
+  {codigoUf:42,uf:"SC",nome:"Santa Catarina",latitude:-27.45,longitude:-50.95,regiao:"Sul"},
+  {codigoUf:43,uf:"RS",nome:"Rio Grande do Sul",latitude:-30.17,longitude:-53.5,regiao:"Sul"},
+  {codigoUf:50,uf:"MS",nome:"Mato Grosso do Sul",latitude:-20.51,longitude:-54.54,regiao:"Centro-Oeste"},
+  {codigoUf:51,uf:"MT",nome:"Mato Grosso",latitude:-12.64,longitude:-55.42,regiao:"Centro-Oeste"},
+  {codigoUf:52,uf:"GO",nome:"Goiás",latitude:-15.98,longitude:-49.86,regiao:"Centro-Oeste"},
+  {codigoUf:53,uf:"DF",nome:"Distrito Federal",latitude:-15.83,longitude:-47.86,regiao:"Centro-Oeste"},
+];

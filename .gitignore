@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.tsbuildinfo
+
+.env
+.env.local
+.env.*.local
+
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+*.log
+coverage/
+*.bak

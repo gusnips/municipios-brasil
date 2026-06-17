@@ -1,0 +1,32 @@
+// ⚠️  Arquivo GERADO por scripts/atualizar-dados.ts — não edite à mão.
+import type { Municipio } from "../tipos/tipos";
+
+export const capitais: Municipio[] = [
+  {codigoIbge:1200401,nome:"Rio Branco",uf:"AC",codigoUf:12,latitude:-9.97499,longitude:-67.8243,capital:true,ddd:68,fusoHorario:"America/Rio_Branco",codigoReceitaFederal:"0139"},
+  {codigoIbge:2704302,nome:"Maceió",uf:"AL",codigoUf:27,latitude:-9.66599,longitude:-35.735,capital:true,ddd:82,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"2785"},
+  {codigoIbge:1302603,nome:"Manaus",uf:"AM",codigoUf:13,latitude:-3.11866,longitude:-60.0212,capital:true,ddd:92,fusoHorario:"America/Porto_Velho",codigoReceitaFederal:"0255"},
+  {codigoIbge:1600303,nome:"Macapá",uf:"AP",codigoUf:16,latitude:0.034934,longitude:-51.0694,capital:true,ddd:96,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"0605"},
+  {codigoIbge:2927408,nome:"Salvador",uf:"BA",codigoUf:29,latitude:-12.9718,longitude:-38.5011,capital:true,ddd:71,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"3849"},
+  {codigoIbge:2304400,nome:"Fortaleza",uf:"CE",codigoUf:23,latitude:-3.71664,longitude:-38.5423,capital:true,ddd:85,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"1389"},
+  {codigoIbge:5300108,nome:"Brasília",uf:"DF",codigoUf:53,latitude:-15.7795,longitude:-47.9297,capital:true,ddd:61,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"9701"},
+  {codigoIbge:3205309,nome:"Vitória",uf:"ES",codigoUf:32,latitude:-20.3155,longitude:-40.3128,capital:true,ddd:27,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"5705"},
+  {codigoIbge:5208707,nome:"Goiânia",uf:"GO",codigoUf:52,latitude:-16.6864,longitude:-49.2643,capital:true,ddd:62,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"9373"},
+  {codigoIbge:2111300,nome:"São Luís",uf:"MA",codigoUf:21,latitude:-2.53874,longitude:-44.2825,capital:true,ddd:98,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"0921"},
+  {codigoIbge:3106200,nome:"Belo Horizonte",uf:"MG",codigoUf:31,latitude:-19.9102,longitude:-43.9266,capital:true,ddd:31,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"4123"},
+  {codigoIbge:5002704,nome:"Campo Grande",uf:"MS",codigoUf:50,latitude:-20.4486,longitude:-54.6295,capital:true,ddd:67,fusoHorario:"America/Porto_Velho",codigoReceitaFederal:"9051"},
+  {codigoIbge:5103403,nome:"Cuiabá",uf:"MT",codigoUf:51,latitude:-15.601,longitude:-56.0974,capital:true,ddd:65,fusoHorario:"America/Porto_Velho",codigoReceitaFederal:"9067"},
+  {codigoIbge:1501402,nome:"Belém",uf:"PA",codigoUf:15,latitude:-1.4554,longitude:-48.4898,capital:true,ddd:91,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"0427"},
+  {codigoIbge:2507507,nome:"João Pessoa",uf:"PB",codigoUf:25,latitude:-7.11509,longitude:-34.8641,capital:true,ddd:83,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"2051"},
+  {codigoIbge:2611606,nome:"Recife",uf:"PE",codigoUf:26,latitude:-8.04666,longitude:-34.8771,capital:true,ddd:81,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"2531"},
+  {codigoIbge:2211001,nome:"Teresina",uf:"PI",codigoUf:22,latitude:-5.09194,longitude:-42.8034,capital:true,ddd:86,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"1219"},
+  {codigoIbge:4106902,nome:"Curitiba",uf:"PR",codigoUf:41,latitude:-25.4195,longitude:-49.2646,capital:true,ddd:41,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"7535"},
+  {codigoIbge:3304557,nome:"Rio de Janeiro",uf:"RJ",codigoUf:33,latitude:-22.9129,longitude:-43.2003,capital:true,ddd:21,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"6001"},
+  {codigoIbge:2408102,nome:"Natal",uf:"RN",codigoUf:24,latitude:-5.79357,longitude:-35.1986,capital:true,ddd:84,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"1761"},
+  {codigoIbge:1100205,nome:"Porto Velho",uf:"RO",codigoUf:11,latitude:-8.76077,longitude:-63.8999,capital:true,ddd:69,fusoHorario:"America/Porto_Velho",codigoReceitaFederal:"0003"},
+  {codigoIbge:1400100,nome:"Boa Vista",uf:"RR",codigoUf:14,latitude:2.82384,longitude:-60.6753,capital:true,ddd:95,fusoHorario:"America/Porto_Velho",codigoReceitaFederal:"0301"},
+  {codigoIbge:4314902,nome:"Porto Alegre",uf:"RS",codigoUf:43,latitude:-30.0318,longitude:-51.2065,capital:true,ddd:51,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"8801"},
+  {codigoIbge:4205407,nome:"Florianópolis",uf:"SC",codigoUf:42,latitude:-27.5945,longitude:-48.5477,capital:true,ddd:48,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"8105"},
+  {codigoIbge:2800308,nome:"Aracaju",uf:"SE",codigoUf:28,latitude:-10.9091,longitude:-37.0677,capital:true,ddd:79,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"3105"},
+  {codigoIbge:3550308,nome:"São Paulo",uf:"SP",codigoUf:35,latitude:-23.5329,longitude:-46.6395,capital:true,ddd:11,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"7107"},
+  {codigoIbge:1721000,nome:"Palmas",uf:"TO",codigoUf:17,latitude:-10.24,longitude:-48.3558,capital:true,ddd:63,fusoHorario:"America/Sao_Paulo",codigoReceitaFederal:"9733"},
+];

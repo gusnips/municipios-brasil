@@ -1,0 +1,102 @@
+{
+  "name": "municipios-brasil",
+  "version": "0.1.0",
+  "description": "Estados, cidades e capitais do Brasil em TypeScript — busca/autocomplete, filtro por estado e proximidade geográfica. DX em pt-br: estados e capitais síncronos, municípios sob demanda (code-split).",
+  "packageManager": "bun@1.3.8",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./dados": {
+      "import": {
+        "types": "./dist/dados/index.d.ts",
+        "default": "./dist/dados/index.mjs"
+      },
+      "require": {
+        "types": "./dist/dados/index.d.cts",
+        "default": "./dist/dados/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "dados": ["./dist/dados/index.d.ts"]
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun run build:es && bun run build:cjs && bun run build:tipos",
+    "build:es": "BUILD_FORMAT=es vite build",
+    "build:cjs": "BUILD_FORMAT=cjs vite build",
+    "build:tipos": "tsc -p tsconfig.build.json && rollup -c rollup.config.dts.mjs && bun scripts/finalizar-tipos.ts",
+    "dev": "BUILD_FORMAT=es vite build --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src scripts tests",
+    "lint:fix": "eslint src scripts tests --fix",
+    "test": "bun test tests/*.test.ts",
+    "clean": "rm -rf dist",
+    "prebuild": "bun run clean",
+    "dados:atualizar": "bun scripts/atualizar-dados.ts",
+    "verificar:build": "bun scripts/verificar-build.ts",
+    "prepublishOnly": "bun run lint && bun run typecheck && bun run test && bun run build && bun run verificar:build",
+    "release:patch": "bun pm version patch && bun publish",
+    "release:minor": "bun pm version minor && bun publish",
+    "release:major": "bun pm version major && bun publish",
+    "release": "bun publish"
+  },
+  "keywords": [
+    "brasil",
+    "municipios",
+    "estados",
+    "capitais",
+    "cidades",
+    "ibge",
+    "geo",
+    "autocomplete",
+    "ddd",
+    "uf",
+    "typescript"
+  ],
+  "author": "Gustavo Salomé (gusnips)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusnips/municipios-brasil.git"
+  },
+  "homepage": "https://github.com/gusnips/municipios-brasil#readme",
+  "bugs": {
+    "url": "https://github.com/gusnips/municipios-brasil/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@types/bun": "^1.3.0",
+    "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "eslint": "^9.34.0",
+    "rollup": "^4.62.0",
+    "rollup-plugin-dts": "^6.4.1",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.2"
+  }
+}
