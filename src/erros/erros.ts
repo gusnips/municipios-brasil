@@ -92,7 +92,7 @@ function levenshtein(a: string, b: string): number {
 }
 
 /**
- * Encontra, entre `candidatos`, o mais parecido com `termo` (acento-insensível).
+ * Encontra, entre os `candidatos`, o mais parecido com o `termo` (ignorando acentos).
  * Retorna `undefined` se o melhor candidato estiver além de `limiar` edições.
  */
 export function sugerirMaisProximo(

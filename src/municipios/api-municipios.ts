@@ -56,8 +56,8 @@ export interface ApiMunicipios {
   obterPorCodigoReceitaFederal(codigo: string | number): Municipio;
 
   /**
-   * Busca municípios por nome, ranqueada e acento-insensível (autocomplete).
-   * Use `opcoes.uf` para desambiguar nomes repetidos (há 232 nomes em mais de um estado).
+   * Busca municípios por nome, ordenada por relevância e ignorando acentos (autocomplete).
+   * Use `opcoes.uf` para diferenciar nomes repetidos (há 232 nomes em mais de um estado).
    *
    * @example
    * municipios.buscar("são paulo", { uf: "SP" })
@@ -65,7 +65,7 @@ export interface ApiMunicipios {
    */
   buscar(termo: string, opcoes?: OpcoesBuscaCidade): Municipio[];
 
-  /** Lista os municípios de um estado (pela sigla, sem diferenciar caixa, ou pelo codigoUf). */
+  /** Lista os municípios de um estado (pela sigla, sem diferenciar maiúsculas de minúsculas, ou pelo codigoUf). */
   porEstado(ufOuCodigo: UF | number): Municipio[];
 
   /**

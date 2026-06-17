@@ -1,6 +1,6 @@
 {
   "name": "municipios-brasil",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Estados, cidades e capitais do Brasil em TypeScript — busca/autocomplete, filtro por estado e proximidade geográfica. DX em pt-br: estados e capitais síncronos, municípios sob demanda (code-split).",
   "packageManager": "bun@1.3.8",
   "type": "module",

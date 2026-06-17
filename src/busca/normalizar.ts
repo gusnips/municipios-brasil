@@ -1,11 +1,11 @@
 const colator = new Intl.Collator("pt-BR", { sensitivity: "base", numeric: true });
 
-/** Marcas diacríticas combinantes (acentos) — bloco Unicode U+0300–U+036F. */
+/** Acentos e marcas de acentuação (intervalo Unicode U+0300–U+036F). */
 const ACENTOS = /[̀-ͯ]/g;
 
 /**
- * Compara duas strings na ordem alfabética do português brasileiro,
- * de forma acento-insensível (útil para ordenar nomes de cidades/estados).
+ * Compara dois textos na ordem alfabética do português, ignorando acentos e
+ * maiúsculas (útil para ordenar nomes de cidades e estados).
  *
  * @example
  * ["Áurea", "Areia"].sort(compararPtBr) // ["Areia", "Áurea"]
@@ -15,10 +15,10 @@ export function compararPtBr(a: string, b: string): number {
 }
 
 /**
- * Normaliza um texto para busca acento-insensível: remove acentos (NFD),
- * converte para minúsculas, apara as pontas e colapsa espaços internos.
- *
- * Use quando precisar comparar entradas do usuário com nomes de localidades.
+ * Deixa um texto pronto para comparação: tira os acentos (NFD), passa tudo para
+ * minúsculas, remove os espaços das pontas e junta espaços repetidos num só.
+ * Serve para comparar o que a pessoa digitou com os nomes das localidades sem se
+ * preocupar com acento ou maiúscula/minúscula.
  *
  * @example
  * normalizarTexto("São   Paulo ") // "sao paulo"

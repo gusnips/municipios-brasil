@@ -4,7 +4,7 @@
  * - **Estados, capitais, regiões, geo puro e formatação são síncronos** (dados
  *   embutidos, ~1 KB gzip) — funcionam sem `await`.
  * - **Os municípios carregam sob demanda** via {@link carregarMunicipios}, que
- *   devolve uma API síncrona pronta para autocomplete (busca, proximidade, filtros).
+ *   devolve uma API síncrona pronta para usar em autocomplete (busca, proximidade, filtros).
  *
  * @example
  * import { listarEstados, carregarMunicipios } from "municipios-brasil";

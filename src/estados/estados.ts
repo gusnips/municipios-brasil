@@ -63,8 +63,8 @@ export function obterEstado(ufOuCodigo: UF | number): Estado {
 }
 
 /**
- * Busca estados por nome ou sigla, de forma ranqueada e acento-insensível
- * (pronta para autocomplete). Retorna lista vazia se o termo for vazio.
+ * Busca estados por nome ou sigla, ordenada por relevância e ignorando acentos
+ * (pronta para usar em autocomplete). Retorna lista vazia se o termo for vazio.
  *
  * @example
  * buscarEstados("rio")  // [Rio de Janeiro, Rio Grande do Norte, Rio Grande do Sul]
@@ -112,7 +112,7 @@ export function listarCapitais(): Municipio[] {
 }
 
 /**
- * Obtém a capital de um estado pela sigla da UF (sem diferenciar caixa).
+ * Obtém a capital de um estado pela sigla da UF (sem diferenciar maiúsculas de minúsculas).
  *
  * @throws {UfInvalidaError} quando a sigla não é uma UF válida.
  *

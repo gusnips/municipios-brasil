@@ -9,7 +9,7 @@ e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
 ### Adicionado
 
 - **Estados (síncrono):** `listarEstados`, `obterEstado` (por sigla ou código),
-  `buscarEstados` (autocomplete acento-insensível), `listarRegioes`,
+  `buscarEstados` (autocomplete que ignora acentos), `listarRegioes`,
   `listarEstadosPorRegiao`.
 - **Capitais (síncrono):** `listarCapitais`, `obterCapital`.
 - **Municípios sob demanda:** `carregarMunicipios()` (com `import()` dinâmico e

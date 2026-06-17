@@ -73,7 +73,7 @@ export interface OpcoesBuscaEstado {
 export interface OpcoesBuscaCidade {
   /** Número máximo de resultados (padrão: 20). */
   limite?: number;
-  /** Restringe a busca a uma ou mais UFs (ótimo para desambiguar nomes repetidos). */
+  /** Restringe a busca a uma ou mais UFs (ótimo para diferenciar nomes repetidos). */
   uf?: UF | UF[];
   /** Quando `true`, busca apenas entre as capitais. */
   somenteCapitais?: boolean;

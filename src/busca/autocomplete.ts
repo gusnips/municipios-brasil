@@ -1,19 +1,19 @@
 import { normalizarTexto } from "./normalizar";
 
-/** Opções de ranqueamento genéricas para a busca/autocomplete. */
+/** Opções genéricas de ordenação por relevância da busca/autocomplete. */
 export interface OpcoesRanqueamento<T> {
   /** Número máximo de resultados (padrão: 20). */
   limite?: number;
   /**
    * Critério de desempate entre itens com a mesma pontuação.
-   * Retorne negativo se `a` deve vir antes de `b`.
+   * Retorne um número negativo se `a` vier antes de `b`.
    */
   desempate?: (a: T, b: T) => number;
 }
 
 /**
- * Pontua o quão bem um nome normalizado casa com o termo normalizado.
- * Menor é melhor; `null` significa "não casa".
+ * Calcula a pontuação de correspondência entre o nome (já normalizado) e o termo
+ * digitado. Quanto menor, melhor; `null` quer dizer que não corresponde.
  *
  * - `0`: igual exato
  * - `1`: começa com o termo
@@ -29,8 +29,8 @@ export function pontuar(nomeNormalizado: string, termoNormalizado: string): numb
 }
 
 /**
- * Busca ranqueada e acento-insensível, pronta para autocomplete.
- * Retorna uma lista vazia quando o termo é vazio/em branco.
+ * Busca ordenada por relevância e que ignora acentos, pronta para usar em
+ * autocomplete. Retorna uma lista vazia quando o termo é vazio/em branco.
  *
  * A ordenação é: melhor pontuação primeiro, depois o critério de `desempate`
  * (se houver) e, por fim, a ordem original (estável).
