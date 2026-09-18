@@ -69,6 +69,23 @@ export interface OpcoesBuscaEstado {
   limite?: number;
 }
 
+/** Ordem de uma lista de estados. */
+export type OrdemEstados = "nome" | "sigla" | "ibge";
+
+/** Opções para `listarEstados` e `listarEstadosPorRegiao`. */
+export interface OpcoesListaEstados {
+  /**
+   * Como ordenar a lista (padrão: `"nome"`, A→Z ignorando acentos — é o que
+   * uma pessoa espera ver num seletor de estado).
+   *
+   * - `"nome"`: Acre, Alagoas, Amapá, Amazonas…
+   * - `"sigla"`: AC, AL, AM, AP…
+   * - `"ibge"`: a ordem da tabela do IBGE, que agrupa por região
+   *   (RO, AC, AM, RR… — Norte primeiro).
+   */
+  ordem?: OrdemEstados;
+}
+
 /** Opções para a busca de cidades (`municipios.buscar`). */
 export interface OpcoesBuscaCidade {
   /** Número máximo de resultados (padrão: 20). */

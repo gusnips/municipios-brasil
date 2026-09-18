@@ -1,4 +1,13 @@
-import type { Estado, FusoHorario, Municipio, OpcoesBuscaEstado, Regiao, UF } from "../tipos/tipos";
+import type {
+  Estado,
+  FusoHorario,
+  Municipio,
+  OpcoesBuscaEstado,
+  OpcoesListaEstados,
+  OrdemEstados,
+  Regiao,
+  UF,
+} from "../tipos/tipos";
 import { estados as DADOS_ESTADOS } from "../dados/estados.gerado";
 import { capitais as DADOS_CAPITAIS } from "../dados/capitais.gerado";
 import { FUSOS_HORARIOS, REGIOES, UFS } from "../tipos/gerados";
@@ -7,13 +16,27 @@ import { buscarRanqueado } from "../busca/autocomplete";
 import { compararPtBr, normalizarTexto } from "../busca/normalizar";
 
 /**
- * Lista os 27 estados (UFs) do Brasil, incluindo o Distrito Federal.
+ * Ordena uma lista de estados. `"ibge"` devolve a lista como ela veio — os
+ * dados já estão na ordem da tabela do IBGE.
+ */
+function ordenar(estados: Estado[], ordem: OrdemEstados = "nome"): Estado[] {
+  if (ordem === "ibge") return estados;
+  if (ordem === "sigla") return estados.sort((a, b) => compararPtBr(a.uf, b.uf));
+  return estados.sort((a, b) => compararPtBr(a.nome, b.nome));
+}
+
+/**
+ * Lista os 27 estados (UFs) do Brasil, incluindo o Distrito Federal, em ordem
+ * alfabética de nome — a ordem de um seletor de estado.
  *
  * @example
- * listarEstados().length // 27
+ * listarEstados().length              // 27
+ * listarEstados()[0].nome             // "Acre"
+ * listarEstados({ ordem: "sigla" })   // AC, AL, AM, AP…
+ * listarEstados({ ordem: "ibge" })    // a tabela do IBGE: RO, AC, AM, RR…
  */
-export function listarEstados(): Estado[] {
-  return [...DADOS_ESTADOS];
+export function listarEstados(opcoes: OpcoesListaEstados = {}): Estado[] {
+  return ordenar([...DADOS_ESTADOS], opcoes.ordem);
 }
 
 /**
@@ -88,27 +111,32 @@ export function listarRegioes(): Regiao[] {
 }
 
 /**
- * Lista os estados de uma região.
+ * Lista os estados de uma região, em ordem alfabética de nome.
  *
  * @throws {RegiaoInvalidaError} quando a região não existe.
  *
  * @example
  * listarEstadosPorRegiao("Sul") // [Paraná, Rio Grande do Sul, Santa Catarina]
  */
-export function listarEstadosPorRegiao(regiao: Regiao): Estado[] {
+export function listarEstadosPorRegiao(regiao: Regiao, opcoes: OpcoesListaEstados = {}): Estado[] {
   if (!ehRegiao(regiao)) throw new RegiaoInvalidaError(regiao, REGIOES);
-  return DADOS_ESTADOS.filter((e) => e.regiao === regiao);
+  return ordenar(
+    DADOS_ESTADOS.filter((e) => e.regiao === regiao),
+    opcoes.ordem,
+  );
 }
 
 /**
- * Lista as 27 capitais do Brasil. Disponível de forma síncrona, sem precisar
- * de {@link carregarMunicipios} (as capitais já vêm embutidas no pacote).
+ * Lista as 27 capitais do Brasil, em ordem alfabética de nome. Disponível de
+ * forma síncrona, sem precisar de {@link carregarMunicipios} (as capitais já
+ * vêm embutidas no pacote).
  *
  * @example
- * listarCapitais().length // 27
+ * listarCapitais().length  // 27
+ * listarCapitais()[0].nome // "Aracaju"
  */
 export function listarCapitais(): Municipio[] {
-  return [...DADOS_CAPITAIS];
+  return [...DADOS_CAPITAIS].sort((a, b) => compararPtBr(a.nome, b.nome));
 }
 
 /**

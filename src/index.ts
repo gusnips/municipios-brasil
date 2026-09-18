@@ -28,6 +28,8 @@ export type {
   FusoHorario,
   OpcoesBuscaEstado,
   OpcoesBuscaCidade,
+  OpcoesListaEstados,
+  OrdemEstados,
   OpcoesProximidade,
   ResultadoProximidade,
 } from "./tipos/tipos";

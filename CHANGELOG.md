@@ -4,6 +4,31 @@ Todas as mudanças relevantes deste pacote são documentadas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/)
 e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.2.0] - 2026-09-18
+
+### Mudado
+
+- **`listarEstados()` agora devolve os estados em ordem alfabética de nome**
+  (Acre, Alagoas, Amapá, Amazonas…). Antes vinha na ordem da tabela do IBGE, que
+  agrupa por região (RO, AC, AM, RR…) e lê como aleatória num seletor. Quem
+  quiser a ordem antiga pede: `listarEstados({ ordem: "ibge" })`.
+- **`listarEstadosPorRegiao(regiao)`** passa a ordenar por nome também — é o que
+  a documentação já prometia (`"Sul"` → Paraná, Rio Grande do Sul, Santa
+  Catarina) e não era o que o código fazia.
+- **`listarCapitais()`** passa a vir em ordem de nome da cidade (Aracaju,
+  Belém, Belo Horizonte…). Antes vinha na ordem da sigla da UF.
+
+### Adicionado
+
+- Opção `ordem` em `listarEstados` e `listarEstadosPorRegiao`: `"nome"`
+  (padrão), `"sigla"` ou `"ibge"`. Tipos `OpcoesListaEstados` e `OrdemEstados`.
+- **O subpath `/dados` passa a exportar a API síncrona inteira** — tudo o que a
+  raiz exporta menos `carregarMunicipios`, a única função com `import()`
+  dinâmico. É o que faltava para usar o pacote em **React Native**: o Metro não
+  resolve o chunk dinâmico da raiz, então um app RN importava os arrays crus e
+  reescrevia busca, normalização e ordenação à mão. Agora:
+  `import { criarApiMunicipios, municipios } from "municipios-brasil/dados"`.
+
 ## [0.1.0] - 2026-06-17
 
 ### Adicionado

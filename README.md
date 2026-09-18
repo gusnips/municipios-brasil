@@ -75,11 +75,11 @@ function SeletorDeCidade() {
 
 | Função | Retorno | O que faz |
 | --- | --- | --- |
-| `listarEstados()` | `Estado[]` | Lista os 27 estados (incluindo o DF). |
+| `listarEstados(opcoes?)` | `Estado[]` | Lista os 27 estados (incluindo o DF), em ordem de nome. `opcoes`: `{ ordem? }` — `"nome"` (padrão), `"sigla"` ou `"ibge"`. |
 | `obterEstado(ufOuCodigo)` | `Estado` | Busca um estado pela sigla (aceita minúsculas) ou pelo `codigoUf`. Lança um erro se não existir. |
 | `buscarEstados(termo, opcoes?)` | `Estado[]` | Busca por nome ou sigla, ordenada por relevância e ignorando acentos. `opcoes`: `{ limite? }`. |
 | `listarRegioes()` | `Regiao[]` | Lista as 5 regiões. |
-| `listarEstadosPorRegiao(regiao)` | `Estado[]` | Lista os estados de uma região. |
+| `listarEstadosPorRegiao(regiao, opcoes?)` | `Estado[]` | Lista os estados de uma região, em ordem de nome. Mesmas `opcoes` de `listarEstados`. |
 | `ehUf(valor)` | `valor is UF` | Diz se o valor é uma sigla de UF válida (não lança). |
 | `ehRegiao(valor)` | `valor is Regiao` | Diz se o valor é uma região válida (não lança). |
 | `ehFusoHorario(valor)` | `valor is FusoHorario` | Diz se o valor é um fuso horário válido (não lança). |
@@ -87,6 +87,8 @@ function SeletorDeCidade() {
 ```ts
 import { obterEstado, buscarEstados, listarEstadosPorRegiao, ehUf } from "municipios-brasil";
 
+listarEstados()[0].nome;                // "Acre"      (A→Z por nome)
+listarEstados({ ordem: "ibge" })[0].uf; // "RO"        (a tabela do IBGE)
 obterEstado("MG").nome;                 // "Minas Gerais"
 obterEstado(33).regiao;                 // "Sudeste"   (33 = código do RJ)
 buscarEstados("rio");                   // [Rio de Janeiro, Rio Grande do Norte, Rio Grande do Sul]
@@ -251,17 +253,19 @@ type FusoHorario = "America/Noronha" | "America/Porto_Velho" | "America/Rio_Bran
 
 Constantes exportadas: `UFS`, `REGIOES`, `FUSOS_HORARIOS` e `CODIGO_UF_POR_SIGLA` (mapa sigla → `codigoUf`).
 
-## Subpath `municipios-brasil/dados` — dados crus (síncrono)
+## Subpath `municipios-brasil/dados` — tudo síncrono
 
-Para scripts Node, SSR ou etapas de build que querem os arrays **sem** `await` (importar este caminho inclui o dataset de municípios no seu bundle, de propósito):
+Para scripts Node, SSR, etapas de build e **React Native**: os arrays **sem** `await`, mais toda a API da raiz menos `carregarMunicipios` (importar este caminho inclui o dataset de municípios no seu bundle, de propósito).
 
 ```ts
-import { estados, capitais, municipios, meta } from "municipios-brasil/dados";
-import { criarApiMunicipios } from "municipios-brasil";
+import { criarApiMunicipios, municipios, meta } from "municipios-brasil/dados";
 
 const api = criarApiMunicipios(municipios); // a mesma ApiMunicipios, 100% síncrona
+api.buscar("São Pau", { uf: "SP" });
 meta.dataCaptura;                            // quando os dados foram capturados da fonte
 ```
+
+No **React Native** este é o caminho a usar: o Metro não resolve o `import()` dinâmico que a raiz faz em `carregarMunicipios`, e é só por causa dele que a raiz não serve. Aqui estão `listarEstados`, `obterCapital`, `criarApiMunicipios`, `normalizarTexto`, `compararPtBr`, `formatarCidadeUf`, os erros e os tipos — nada para reescrever à mão.
 
 ## Erros — o que aconteceu / por quê / como resolver
 
