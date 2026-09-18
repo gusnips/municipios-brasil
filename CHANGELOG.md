@@ -4,6 +4,16 @@ Todas as mudanças relevantes deste pacote são documentadas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/)
 e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.2.1] - 2026-09-18
+
+### Corrigido
+
+- **`Intl.Collator` deixa de ser montado na carga do módulo.** Em runtimes sem
+  `Intl` completo — Hermes/React Native — o construtor pode falhar, e quem só
+  queria importar os dados levava o app junto. Agora ele é montado na primeira
+  comparação e, se não der, `compararPtBr` cai no texto normalizado, que ordena
+  igual para nome de cidade e de estado.
+
 ## [0.2.0] - 2026-09-18
 
 ### Mudado

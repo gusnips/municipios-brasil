@@ -45,3 +45,18 @@ describe("buscarRanqueado", () => {
     expect(resultado[0]?.n).toBe("santos");
   });
 });
+
+describe("compararPtBr sem Intl", () => {
+  // Hermes (React Native) pode não trazer `Intl.Collator`. Em subprocesso
+  // porque o collator é memoizado: dentro desta suíte ele já foi montado.
+  test("sem Intl o pacote importa e continua ordenando", () => {
+    const script = [
+      "globalThis.Intl = undefined;",
+      'const { compararPtBr } = await import("./src/index.ts");',
+      'console.log(["Áurea", "Areia", "Belém"].sort(compararPtBr).join(","));',
+    ].join("\n");
+    const resultado = Bun.spawnSync(["bun", "-e", script], { cwd: `${import.meta.dir}/..` });
+    expect(resultado.stdout.toString().trim()).toBe("Areia,Áurea,Belém");
+    expect(resultado.exitCode).toBe(0);
+  });
+});
