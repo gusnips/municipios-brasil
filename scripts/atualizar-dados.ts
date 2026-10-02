@@ -246,7 +246,7 @@ async function principal(): Promise<void> {
   console.log(`   capitais:   ${capitais.length}${delta(anterior?.capitais, capitais.length)}`);
   console.log(`   UFs: ${ufs.length} · regiões: ${regioes.length} · fusos: ${fusos.length}`);
   console.log(`   tamanho do dataset de municípios: ~${tamanhoChunk} KB (JSON minificado)`);
-  if (!anterior) console.log("   (primeira geração — sem diff anterior para comparar)");
+  if (!anterior) console.log("   (primeira geração, sem diff anterior para comparar)");
 }
 
 function delta(antes: number | undefined, agora: number): string {
