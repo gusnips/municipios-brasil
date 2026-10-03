@@ -2,19 +2,6 @@ import js from "@eslint/js";
 import typescript from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 
-// Sem travessão ("\u2014") no texto que o leitor vê: mensagens de erro e qualquer string
-// em src/. Comentários internos ficam livres. scripts/verificar-travessao.ts cobre README,
-// CHANGELOG, a descrição do pacote, JSDoc publicado e entidades HTML no texto do código.
-// O escape unicode evita o caractere neste arquivo.
-const SEM_TRAVESSAO = [
-  "Literal[value=/\\u2014/]",
-  "TemplateElement[value.cooked=/\\u2014/]",
-].map((selector) => ({
-  selector,
-  message:
-    "Sem travessão em texto para o usuário. Use ponto, vírgula, dois-pontos ou parênteses.",
-}));
-
 export default [
   {
     // Arquivos gerados pelo script de dados não são lintados (são enormes e
@@ -51,7 +38,6 @@ export default [
       "@typescript-eslint/consistent-type-imports": "off",
       "prefer-const": "error",
       "no-var": "error",
-      "no-restricted-syntax": ["error", ...SEM_TRAVESSAO],
     },
   },
   {

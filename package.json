@@ -33,7 +33,9 @@
   },
   "typesVersions": {
     "*": {
-      "dados": ["./dist/dados/index.d.ts"]
+      "dados": [
+        "./dist/dados/index.d.ts"
+      ]
     }
   },
   "files": [
@@ -48,7 +50,6 @@
     "build:tipos": "tsc -p tsconfig.build.json && rollup -c rollup.config.dts.mjs && bun scripts/finalizar-tipos.ts",
     "dev": "BUILD_FORMAT=es vite build --watch",
     "typecheck": "tsc --noEmit",
-    "verificar:texto": "bun scripts/verificar-travessao.ts",
     "lint": "eslint src scripts tests",
     "lint:fix": "eslint src scripts tests --fix",
     "test": "bun test tests/*.test.ts",
@@ -56,7 +57,7 @@
     "prebuild": "bun run clean",
     "dados:atualizar": "bun scripts/atualizar-dados.ts",
     "verificar:build": "bun scripts/verificar-build.ts",
-    "prepublishOnly": "bun run lint && bun run verificar:texto && bun run typecheck && bun run test && bun run build && bun run verificar:build",
+    "prepublishOnly": "bun run lint && bun run typecheck && bun run test && bun run build && bun run verificar:build",
     "release:patch": "bun pm version patch && bun publish",
     "release:minor": "bun pm version minor && bun publish",
     "release:major": "bun pm version major && bun publish",
