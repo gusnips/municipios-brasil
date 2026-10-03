@@ -6,14 +6,13 @@ import typescriptParser from "@typescript-eslint/parser";
 // em src/. Comentários não são nós, então ficam livres. README, CHANGELOG e a descrição
 // do pacote são cobertos por scripts/verificar-travessao.ts. O escape unicode evita o
 // caractere neste arquivo.
-const SEM_TRAVESSAO = [
-  "Literal[value=/\\u2014/]",
-  "TemplateElement[value.raw=/\\u2014/]",
-].map((selector) => ({
-  selector,
-  message:
-    "Sem travessão em texto para o usuário. Use ponto, vírgula, dois-pontos ou parênteses.",
-}));
+const SEM_TRAVESSAO = ["Literal[value=/\\u2014/]", "TemplateElement[value.cooked=/\\u2014/]"].map(
+  (selector) => ({
+    selector,
+    message:
+      "Sem travessão em texto para o usuário. Use ponto, vírgula, dois-pontos ou parênteses.",
+  }),
+);
 
 export default [
   {

@@ -4,14 +4,14 @@
 
 import { readFileSync } from "node:fs";
 
-const TRAVESSAO = "—";
+const TRAVESSAO = /—|\\u2014|\\u\{2014\}|&mdash;|&#(?:0*8212|x0*2014);/i;
 const arquivos = ["README.md", "CHANGELOG.md", "package.json"];
 
 const problemas = arquivos.flatMap((arquivo) =>
   readFileSync(arquivo, "utf8")
     .split("\n")
     .flatMap((linha, i) =>
-      linha.includes(TRAVESSAO) ? [`${arquivo}:${i + 1}: ${linha.trim()}`] : [],
+      TRAVESSAO.test(linha) ? [`${arquivo}:${i + 1}: ${linha.trim()}`] : [],
     ),
 );
 
