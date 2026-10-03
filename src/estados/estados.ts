@@ -11,7 +11,11 @@ import type {
 import { estados as DADOS_ESTADOS } from "../dados/estados.gerado";
 import { capitais as DADOS_CAPITAIS } from "../dados/capitais.gerado";
 import { FUSOS_HORARIOS, REGIOES, UFS } from "../tipos/gerados";
-import { EstadoNaoEncontradoError, RegiaoInvalidaError, UfInvalidaError } from "../erros/erros";
+import {
+  EstadoNaoEncontradoError,
+  RegiaoInvalidaError,
+  UfInvalidaError,
+} from "../erros/erros";
 import { buscarRanqueado } from "../busca/autocomplete";
 import { compararPtBr, normalizarTexto } from "../busca/normalizar";
 
@@ -21,13 +25,14 @@ import { compararPtBr, normalizarTexto } from "../busca/normalizar";
  */
 function ordenar(estados: Estado[], ordem: OrdemEstados = "nome"): Estado[] {
   if (ordem === "ibge") return estados;
-  if (ordem === "sigla") return estados.sort((a, b) => compararPtBr(a.uf, b.uf));
+  if (ordem === "sigla")
+    return estados.sort((a, b) => compararPtBr(a.uf, b.uf));
   return estados.sort((a, b) => compararPtBr(a.nome, b.nome));
 }
 
 /**
- * Lista os 27 estados (UFs) do Brasil, incluindo o Distrito Federal, em ordem
- * alfabética de nome — a ordem de um seletor de estado.
+ * Lista os 27 estados (UFs) do Brasil, incluindo o Distrito Federal, em ordem alfabética de nome,
+ * como em um seletor de estado.
  *
  * @example
  * listarEstados().length              // 27
@@ -53,12 +58,16 @@ export function ehUf(valor: unknown): valor is UF {
 
 /** Verifica se um valor é uma região válida (type guard). */
 export function ehRegiao(valor: unknown): valor is Regiao {
-  return typeof valor === "string" && REGIOES.some((regiao) => regiao === valor);
+  return (
+    typeof valor === "string" && REGIOES.some((regiao) => regiao === valor)
+  );
 }
 
 /** Verifica se um valor é um fuso horário válido (type guard). */
 export function ehFusoHorario(valor: unknown): valor is FusoHorario {
-  return typeof valor === "string" && FUSOS_HORARIOS.some((fuso) => fuso === valor);
+  return (
+    typeof valor === "string" && FUSOS_HORARIOS.some((fuso) => fuso === valor)
+  );
 }
 
 /**
@@ -93,11 +102,19 @@ export function obterEstado(ufOuCodigo: UF | number): Estado {
  * buscarEstados("rio")  // [Rio de Janeiro, Rio Grande do Norte, Rio Grande do Sul]
  * buscarEstados("sp")   // [São Paulo]
  */
-export function buscarEstados(termo: string, opcoes: OpcoesBuscaEstado = {}): Estado[] {
-  return buscarRanqueado(DADOS_ESTADOS, termo, (e) => `${normalizarTexto(e.nome)} ${e.uf.toLowerCase()}`, {
-    limite: opcoes.limite,
-    desempate: (a, b) => compararPtBr(a.nome, b.nome),
-  });
+export function buscarEstados(
+  termo: string,
+  opcoes: OpcoesBuscaEstado = {},
+): Estado[] {
+  return buscarRanqueado(
+    DADOS_ESTADOS,
+    termo,
+    (e) => `${normalizarTexto(e.nome)} ${e.uf.toLowerCase()}`,
+    {
+      limite: opcoes.limite,
+      desempate: (a, b) => compararPtBr(a.nome, b.nome),
+    },
+  );
 }
 
 /**
@@ -118,7 +135,10 @@ export function listarRegioes(): Regiao[] {
  * @example
  * listarEstadosPorRegiao("Sul") // [Paraná, Rio Grande do Sul, Santa Catarina]
  */
-export function listarEstadosPorRegiao(regiao: Regiao, opcoes: OpcoesListaEstados = {}): Estado[] {
+export function listarEstadosPorRegiao(
+  regiao: Regiao,
+  opcoes: OpcoesListaEstados = {},
+): Estado[] {
   if (!ehRegiao(regiao)) throw new RegiaoInvalidaError(regiao, REGIOES);
   return ordenar(
     DADOS_ESTADOS.filter((e) => e.regiao === regiao),

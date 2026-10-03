@@ -25,8 +25,8 @@ interface DetalhesErro {
 }
 
 /**
- * Erro base do pacote. Toda mensagem explica **o que** aconteceu,
- * **por que** e **como resolver** — e, quando possível, sugere a correção.
+ * Erro base do pacote. Toda mensagem explica **o que** aconteceu, **por que** e **como resolver**.
+ * Quando possível, sugere a correção.
  *
  * Capture por `instanceof ErroMunicipiosBr` (ou uma subclasse) e use
  * {@link ErroMunicipiosBr.codigo} para tratamento programático.
@@ -50,7 +50,8 @@ export class ErroMunicipiosBr extends Error {
       `• Motivo: ${detalhes.motivo}`,
       `• Como resolver: ${detalhes.solucao}`,
     ];
-    if (detalhes.sugestao) partes.push(`• Você quis dizer: ${detalhes.sugestao}?`);
+    if (detalhes.sugestao)
+      partes.push(`• Você quis dizer: ${detalhes.sugestao}?`);
     super(partes.join("\n"));
 
     this.name = "ErroMunicipiosBr";
@@ -125,7 +126,9 @@ export class UfInvalidaError extends ErroMunicipiosBr {
         `Use a sigla de 2 letras em maiúsculas (ex.: "SP", "RJ"). ` +
         `Para procurar por nome, use buscarEstados("..."). UFs válidas: ${ufsValidas.join(", ")}.`,
       sugestao:
-        typeof valorRecebido === "string" ? sugerirMaisProximo(valorRecebido, ufsValidas, 1) : undefined,
+        typeof valorRecebido === "string"
+          ? sugerirMaisProximo(valorRecebido, ufsValidas, 1)
+          : undefined,
     });
     this.name = "UfInvalidaError";
   }
@@ -169,7 +172,9 @@ export class RegiaoInvalidaError extends ErroMunicipiosBr {
       motivo: `${citar(valorRecebido)} não é uma das regiões do Brasil.`,
       solucao: `Use uma destas regiões: ${regioesValidas.join(", ")}.`,
       sugestao:
-        typeof valorRecebido === "string" ? sugerirMaisProximo(valorRecebido, regioesValidas, 3) : undefined,
+        typeof valorRecebido === "string"
+          ? sugerirMaisProximo(valorRecebido, regioesValidas, 3)
+          : undefined,
     });
     this.name = "RegiaoInvalidaError";
   }
@@ -223,7 +228,9 @@ export class FusoInvalidoError extends ErroMunicipiosBr {
       motivo: `${citar(valorRecebido)} não é um dos fusos horários dos municípios brasileiros.`,
       solucao: `Use um destes: ${fusosValidos.join(", ")}.`,
       sugestao:
-        typeof valorRecebido === "string" ? sugerirMaisProximo(valorRecebido, fusosValidos, 4) : undefined,
+        typeof valorRecebido === "string"
+          ? sugerirMaisProximo(valorRecebido, fusosValidos, 4)
+          : undefined,
     });
     this.name = "FusoInvalidoError";
   }

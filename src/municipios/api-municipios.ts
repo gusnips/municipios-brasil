@@ -26,10 +26,9 @@ import {
 } from "../erros/erros";
 
 /**
- * Conjunto de operações **síncronas** sobre os municípios, obtido com
- * {@link carregarMunicipios}. Como os dados já estão em memória e indexados,
- * todos os métodos são síncronos e rápidos — ideal para autocomplete que
- * roda a cada tecla.
+ * Conjunto de operações **síncronas** sobre os municípios, obtido com {@link carregarMunicipios}.
+ * Como os dados já estão em memória e indexados, todos os métodos são síncronos e rápidos,
+ * adequados para autocomplete a cada tecla.
  */
 export interface ApiMunicipios {
   /** Quantidade total de municípios carregados (5.571). */
@@ -87,8 +86,8 @@ export interface ApiMunicipios {
   ehCapital(codigoIbge: number): boolean;
 
   /**
-   * Lista os municípios dentro de um raio (km) de uma origem — um código IBGE
-   * ou uma coordenada — ordenados do mais próximo ao mais distante.
+   * Lista os municípios dentro de um raio (km) de uma origem, informada por código IBGE ou
+   * coordenada. Ordena do mais próximo ao mais distante.
    *
    * @throws {RaioInvalidoError} se o raio não for um número > 0.
    * @throws {CidadeNaoEncontradaError} se a origem for um código IBGE inexistente.
@@ -97,10 +96,17 @@ export interface ApiMunicipios {
    * municipios.proximas(3550308, 50)                              // vizinhas de São Paulo em 50 km
    * municipios.proximas({ latitude: -23.5, longitude: -46.6 }, 30)
    */
-  proximas(origem: number | Coordenada, raioKm: number, opcoes?: OpcoesProximidade): ResultadoProximidade[];
+  proximas(
+    origem: number | Coordenada,
+    raioKm: number,
+    opcoes?: OpcoesProximidade,
+  ): ResultadoProximidade[];
 
   /** Retorna o município mais próximo de uma coordenada. */
-  maisProxima(coordenada: Coordenada, opcoes?: { uf?: UF | UF[] }): ResultadoProximidade;
+  maisProxima(
+    coordenada: Coordenada,
+    opcoes?: { uf?: UF | UF[] },
+  ): ResultadoProximidade;
 
   /**
    * Distância em km entre dois municípios (por código IBGE).
@@ -178,11 +184,17 @@ export function criarApiMunicipios(municipios: Municipio[]): ApiMunicipios {
       if (opcoes.somenteCapitais) {
         candidatos = candidatos.filter((b) => b.cidade.capital);
       }
-      const encontrados = buscarRanqueado(candidatos, termo, (b) => b.nomeNormalizado, {
-        limite: opcoes.limite,
-        desempate: (a, b) =>
-          Number(b.cidade.capital) - Number(a.cidade.capital) || compararPtBr(a.cidade.nome, b.cidade.nome),
-      });
+      const encontrados = buscarRanqueado(
+        candidatos,
+        termo,
+        (b) => b.nomeNormalizado,
+        {
+          limite: opcoes.limite,
+          desempate: (a, b) =>
+            Number(b.cidade.capital) - Number(a.cidade.capital) ||
+            compararPtBr(a.cidade.nome, b.cidade.nome),
+        },
+      );
       return encontrados.map((b) => b.cidade);
     },
 
@@ -192,12 +204,14 @@ export function criarApiMunicipios(municipios: Municipio[]): ApiMunicipios {
     },
 
     porDdd(ddd) {
-      if (!Number.isInteger(ddd) || ddd < 11 || ddd > 99) throw new DddInvalidoError(ddd);
+      if (!Number.isInteger(ddd) || ddd < 11 || ddd > 99)
+        throw new DddInvalidoError(ddd);
       return [...(indice.porDdd.get(ddd) ?? [])];
     },
 
     porFuso(fuso) {
-      if (!ehFusoHorario(fuso)) throw new FusoInvalidoError(fuso, FUSOS_HORARIOS);
+      if (!ehFusoHorario(fuso))
+        throw new FusoInvalidoError(fuso, FUSOS_HORARIOS);
       return [...(indice.porFuso.get(fuso) ?? [])];
     },
 
@@ -210,17 +224,21 @@ export function criarApiMunicipios(municipios: Municipio[]): ApiMunicipios {
     },
 
     proximas(origem, raioKm, opcoes = {}) {
-      if (!Number.isFinite(raioKm) || raioKm <= 0) throw new RaioInvalidoError(raioKm);
+      if (!Number.isFinite(raioKm) || raioKm <= 0)
+        throw new RaioInvalidoError(raioKm);
       let coordenada: Coordenada;
       let excluirCodigoIbge: number | undefined;
       if (typeof origem === "number") {
         const cidade = obterCidade(origem);
         coordenada = { latitude: cidade.latitude, longitude: cidade.longitude };
-        excluirCodigoIbge = opcoes.incluirOrigem ? undefined : cidade.codigoIbge;
+        excluirCodigoIbge = opcoes.incluirOrigem
+          ? undefined
+          : cidade.codigoIbge;
       } else {
         coordenada = origem;
       }
-      const lista = opcoes.uf !== undefined ? cidadesNasUfs(opcoes.uf) : indice.todos;
+      const lista =
+        opcoes.uf !== undefined ? cidadesNasUfs(opcoes.uf) : indice.todos;
       return cidadesDentroDoRaio(lista, coordenada, raioKm, {
         excluirCodigoIbge,
         limite: opcoes.limite,
@@ -228,14 +246,17 @@ export function criarApiMunicipios(municipios: Municipio[]): ApiMunicipios {
     },
 
     maisProxima(coordenada, opcoes = {}) {
-      const lista = opcoes.uf !== undefined ? cidadesNasUfs(opcoes.uf) : indice.todos;
+      const lista =
+        opcoes.uf !== undefined ? cidadesNasUfs(opcoes.uf) : indice.todos;
       const resultado = cidadeMaisProximaDe(lista, coordenada);
       if (!resultado) {
         throw new ErroMunicipiosBr({
           codigo: CodigoErro.PARAMETRO_INVALIDO,
           oQue: "Não há municípios no escopo informado.",
-          motivo: "A lista de cidades considerada ficou vazia (verifique o filtro de UF).",
-          solucao: "Remova o filtro `uf` ou informe UFs que possuam municípios.",
+          motivo:
+            "A lista de cidades considerada ficou vazia (verifique o filtro de UF).",
+          solucao:
+            "Remova o filtro `uf` ou informe UFs que possuam municípios.",
         });
       }
       return resultado;
