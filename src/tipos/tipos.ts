@@ -43,10 +43,9 @@ export interface Municipio {
   /** Fuso horário IANA (ex.: `"America/Sao_Paulo"`). */
   fusoHorario: FusoHorario;
   /**
-   * Código do município na **Receita Federal** — o código **TOM** (Tabela de
-   * Órgãos e Municípios), idêntico ao código SIAFI. String de 4 dígitos com zero
-   * à esquerda (ex.: `"7107"` para São Paulo, `"0643"` para Acrelândia). É o
-   * código usado nos dados abertos de CNPJ da Receita Federal.
+   * Código **TOM** (Tabela de Órgãos e Municípios) usado pela **Receita Federal**, idêntico ao
+   * código SIAFI. String de 4 dígitos com zero à esquerda (ex.: `"7107"` para São Paulo, `"0643"`
+   * para Acrelândia). É o código usado nos dados abertos de CNPJ da Receita Federal.
    *
    * Atenção: NF-e e SPED usam o código IBGE ({@link codigoIbge}), não este.
    */
@@ -75,13 +74,13 @@ export type OrdemEstados = "nome" | "sigla" | "ibge";
 /** Opções para `listarEstados` e `listarEstadosPorRegiao`. */
 export interface OpcoesListaEstados {
   /**
-   * Como ordenar a lista (padrão: `"nome"`, A→Z ignorando acentos — é o que
-   * uma pessoa espera ver num seletor de estado).
+   * Como ordenar a lista. O padrão é `"nome"`: A→Z, ignorando acentos, como em um seletor de
+   * estado.
    *
    * - `"nome"`: Acre, Alagoas, Amapá, Amazonas…
    * - `"sigla"`: AC, AL, AM, AP…
    * - `"ibge"`: a ordem da tabela do IBGE, que agrupa por região
-   *   (RO, AC, AM, RR… — Norte primeiro).
+   *   (RO, AC, AM, RR…, com o Norte primeiro).
    */
   ordem?: OrdemEstados;
 }

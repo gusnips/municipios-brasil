@@ -9,7 +9,7 @@ e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
 ### Corrigido
 
 - **`Intl.Collator` deixa de ser montado na carga do módulo.** Em runtimes sem
-  `Intl` completo — Hermes/React Native — o construtor pode falhar, e quem só
+  `Intl` completo, como Hermes/React Native, o construtor pode falhar, e quem só
   queria importar os dados levava o app junto. Agora ele é montado na primeira
   comparação e, se não der, `compararPtBr` cai no texto normalizado, que ordena
   igual para nome de cidade e de estado.
@@ -22,7 +22,7 @@ e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
   (Acre, Alagoas, Amapá, Amazonas…). Antes vinha na ordem da tabela do IBGE, que
   agrupa por região (RO, AC, AM, RR…) e lê como aleatória num seletor. Quem
   quiser a ordem antiga pede: `listarEstados({ ordem: "ibge" })`.
-- **`listarEstadosPorRegiao(regiao)`** passa a ordenar por nome também — é o que
+- **`listarEstadosPorRegiao(regiao)`** passa a ordenar por nome também. É o que
   a documentação já prometia (`"Sul"` → Paraná, Rio Grande do Sul, Santa
   Catarina) e não era o que o código fazia.
 - **`listarCapitais()`** passa a vir em ordem de nome da cidade (Aracaju,
@@ -32,7 +32,7 @@ e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
 
 - Opção `ordem` em `listarEstados` e `listarEstadosPorRegiao`: `"nome"`
   (padrão), `"sigla"` ou `"ibge"`. Tipos `OpcoesListaEstados` e `OrdemEstados`.
-- **O subpath `/dados` passa a exportar a API síncrona inteira** — tudo o que a
+- **O subpath `/dados` passa a exportar a API síncrona inteira**. É tudo o que a
   raiz exporta menos `carregarMunicipios`, a única função com `import()`
   dinâmico. É o que faltava para usar o pacote em **React Native**: o Metro não
   resolve o chunk dinâmico da raiz, então um app RN importava os arrays crus e
@@ -48,10 +48,10 @@ e o versionamento segue o [SemVer](https://semver.org/lang/pt-BR/).
   `listarEstadosPorRegiao`.
 - **Capitais (síncrono):** `listarCapitais`, `obterCapital`.
 - **Municípios sob demanda:** `carregarMunicipios()` (com `import()` dinâmico e
-  memoização) devolvendo a API síncrona `ApiMunicipios` — `listar`, `obter`,
+  memoização) devolvendo a API síncrona `ApiMunicipios`, com `listar`, `obter`,
   `obterPorCodigoReceitaFederal`, `buscar`, `porEstado`, `porDdd`, `porFuso`,
   `obterEstadoDaCidade`, `ehCapital`, `proximas`, `maisProxima`, `distanciaEntre`.
-- **Código da Receita Federal:** cada `Municipio` traz `codigoReceitaFederal` — o
+- **Código da Receita Federal:** cada `Municipio` traz `codigoReceitaFederal`. É o
   código TOM/SIAFI (string de 4 dígitos com zero à esquerda, ex.: `"7107"`), usado
   nos dados abertos de CNPJ. Inclui lookup reverso `obterPorCodigoReceitaFederal`.
 - **Geo, texto e formatação:** `distanciaKm` (Haversine), `normalizarTexto`,

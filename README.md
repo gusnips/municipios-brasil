@@ -1,13 +1,13 @@
 # municipios-brasil
 
-> Estados, cidades e capitais do Brasil em TypeScript — busca/autocomplete, filtro por estado e proximidade geográfica. **API e documentação em pt-br**, com tipos precisos e erros que dizem o que aconteceu, por quê e como resolver.
+> Estados, cidades e capitais do Brasil em TypeScript, com busca/autocomplete, filtro por estado e proximidade geográfica. **API e documentação em pt-br**, com tipos precisos e erros que dizem o que aconteceu, por quê e como resolver.
 
 - 🇧🇷 **27 estados, 27 capitais e 5.571 municípios** (base IBGE), com tipos literais para `UF`, `Regiao` e `FusoHorario`.
-- ⚡ **Estados, capitais, regiões, geo e formatação são síncronos** (dados embutidos, ~1 KB gzip) — funcionam sem `await`.
-- 📦 **Municípios sob demanda:** `carregarMunicipios()` faz um `import()` dinâmico; o bundler (Vite/webpack) separa os ~147 KB (gzip) em um arquivo à parte, carregado só quando você precisa — fora do bundle inicial. Depois disso, tudo é **síncrono** (dá pra buscar a cada tecla).
+- ⚡ **Estados, capitais, regiões, geo e formatação são síncronos** (dados embutidos, ~1 KB gzip). Funcionam sem `await`.
+- 📦 **Municípios sob demanda:** `carregarMunicipios()` faz um `import()` dinâmico; o bundler (Vite/webpack) separa os ~147 KB (gzip) em um arquivo à parte, carregado só quando você precisa, fora do bundle inicial. Depois disso, tudo é **síncrono** (dá pra buscar a cada tecla).
 - 🔎 **Autocomplete que ignora acentos e maiúsculas** (só o algoritmo, sem componentes de tela), diferenciando cidades de mesmo nome por UF.
 - 🧭 **Cidades dentro de um raio em km**, cidade mais próxima de uma coordenada e distância entre cidades (Haversine).
-- 🧾 **Código da Receita Federal (TOM/SIAFI)** de cada município — útil para casar com os dados de CNPJ.
+- 🧾 **Código da Receita Federal (TOM/SIAFI)** de cada município. Útil para casar com os dados de CNPJ.
 - 0️⃣ **Sem dependências em produção.** ESM + CJS, com tipos que resolvem em qualquer modo (`node10`, `node16` e bundler).
 
 ## Instalação
@@ -22,7 +22,7 @@ bun add municipios-brasil
 ```ts
 import { listarEstados, obterEstado, carregarMunicipios } from "municipios-brasil";
 
-// Estados são síncronos — sem await:
+// Estados são síncronos, sem await:
 listarEstados().length;          // 27
 obterEstado("sp").nome;          // "São Paulo"  (aceita "SP", "sp" ou o código 35)
 
@@ -37,7 +37,7 @@ municipios.proximas(3550308, 50);              // vizinhos de São Paulo num rai
 
 ## Uso no React (autocomplete)
 
-O pacote **não traz componentes de tela** — só o algoritmo de busca. A ideia é carregar uma vez e buscar de forma síncrona a cada tecla:
+O pacote **não traz componentes de tela**. Só o algoritmo de busca. A ideia é carregar uma vez e buscar de forma síncrona a cada tecla:
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -55,7 +55,7 @@ export function useMunicipios() {
 function SeletorDeCidade() {
   const api = useMunicipios();
   const [termo, setTermo] = useState("");
-  // Busca síncrona a cada tecla — sem ida à rede, sem await:
+  // Busca síncrona a cada tecla, sem ida à rede, sem await:
   const sugestoes: Municipio[] = api ? api.buscar(termo, { uf: "SP", limite: 8 }) : [];
 
   return (
@@ -75,7 +75,7 @@ function SeletorDeCidade() {
 
 | Função | Retorno | O que faz |
 | --- | --- | --- |
-| `listarEstados(opcoes?)` | `Estado[]` | Lista os 27 estados (incluindo o DF), em ordem de nome. `opcoes`: `{ ordem? }` — `"nome"` (padrão), `"sigla"` ou `"ibge"`. |
+| `listarEstados(opcoes?)` | `Estado[]` | Lista os 27 estados (incluindo o DF), em ordem de nome. `opcoes`: `{ ordem? }`. Valores de `ordem`: `"nome"` (padrão), `"sigla"` ou `"ibge"`. |
 | `obterEstado(ufOuCodigo)` | `Estado` | Busca um estado pela sigla (aceita minúsculas) ou pelo `codigoUf`. Lança um erro se não existir. |
 | `buscarEstados(termo, opcoes?)` | `Estado[]` | Busca por nome ou sigla, ordenada por relevância e ignorando acentos. `opcoes`: `{ limite? }`. |
 | `listarRegioes()` | `Regiao[]` | Lista as 5 regiões. |
@@ -118,7 +118,7 @@ listarCapitais().length;       // 27
 | Função | Retorno | O que faz |
 | --- | --- | --- |
 | `carregarMunicipios()` | `Promise<ApiMunicipios>` | Baixa os municípios (uma vez, fica em cache) e devolve a API síncrona. |
-| `criarApiMunicipios(municipios)` | `ApiMunicipios` | Monta a API a partir de uma lista já em memória (uso 100% síncrono — veja o subpath `/dados`). |
+| `criarApiMunicipios(municipios)` | `ApiMunicipios` | Monta a API a partir de uma lista já em memória (uso 100% síncrono; veja o subpath `/dados`). |
 
 ```ts
 import { carregarMunicipios } from "municipios-brasil";
@@ -189,7 +189,7 @@ municipios.distanciaEntre(3550308, 3304557); // ~358  (São Paulo ↔ Rio de Jan
 
 ## Código da Receita Federal (TOM/SIAFI)
 
-Cada município traz `codigoReceitaFederal`: o **código TOM** (*Tabela de Órgãos e Municípios*), idêntico ao código SIAFI, como **texto de 4 dígitos com zero à esquerda**. É o código que a Receita Federal usa — por exemplo, no campo `municipio` dos **dados abertos de CNPJ** (que **não** usam o código IBGE).
+Cada município traz `codigoReceitaFederal`: o **código TOM** (*Tabela de Órgãos e Municípios*), idêntico ao código SIAFI, como **texto de 4 dígitos com zero à esquerda**. É o código que a Receita Federal usa, por exemplo, no campo `municipio` dos **dados abertos de CNPJ** (que **não** usam o código IBGE).
 
 ```ts
 const m = await carregarMunicipios();
@@ -199,7 +199,7 @@ m.obter(3550308).codigoReceitaFederal;        // "7107"  (São Paulo)
 m.obterPorCodigoReceitaFederal("0643").nome;  // "Acrelândia"
 ```
 
-> Para **NF-e e SPED**, use o código IBGE (`codigoIbge`), não o TOM. Fontes oficiais: [Receita Federal — Órgãos e Municípios](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/dados-abertos/orgaos-e-municipios) · [Tesouro / SIAFI](https://www.tesourotransparente.gov.br/ckan/dataset/lista-de-municipios-do-siafi).
+> Para **NF-e e SPED**, use o código IBGE (`codigoIbge`), não o TOM. Fontes oficiais: [Receita Federal: Órgãos e Municípios](https://www.gov.br/receitafederal/pt-br/acesso-a-informacao/dados-abertos/orgaos-e-municipios) · [Tesouro / SIAFI](https://www.tesourotransparente.gov.br/ckan/dataset/lista-de-municipios-do-siafi).
 
 ## Geo, texto e formatação (síncrono, sem precisar dos dados)
 
@@ -253,7 +253,7 @@ type FusoHorario = "America/Noronha" | "America/Porto_Velho" | "America/Rio_Bran
 
 Constantes exportadas: `UFS`, `REGIOES`, `FUSOS_HORARIOS` e `CODIGO_UF_POR_SIGLA` (mapa sigla → `codigoUf`).
 
-## Subpath `municipios-brasil/dados` — tudo síncrono
+## Subpath `municipios-brasil/dados`: tudo síncrono
 
 Para scripts Node, SSR, etapas de build e **React Native**: os arrays **sem** `await`, mais toda a API da raiz menos `carregarMunicipios` (importar este caminho inclui o dataset de municípios no seu bundle, de propósito).
 
@@ -265,9 +265,9 @@ api.buscar("São Pau", { uf: "SP" });
 meta.dataCaptura;                            // quando os dados foram capturados da fonte
 ```
 
-No **React Native** este é o caminho a usar: o Metro não resolve o `import()` dinâmico que a raiz faz em `carregarMunicipios`, e é só por causa dele que a raiz não serve. Aqui estão `listarEstados`, `obterCapital`, `criarApiMunicipios`, `normalizarTexto`, `compararPtBr`, `formatarCidadeUf`, os erros e os tipos — nada para reescrever à mão.
+No **React Native** este é o caminho a usar: o Metro não resolve o `import()` dinâmico que a raiz faz em `carregarMunicipios`, e é só por causa dele que a raiz não serve. Aqui estão `listarEstados`, `obterCapital`, `criarApiMunicipios`, `normalizarTexto`, `compararPtBr`, `formatarCidadeUf`, os erros e os tipos. Nada para reescrever à mão.
 
-## Erros — o que aconteceu / por quê / como resolver
+## Erros: o que aconteceu, por quê e como resolver
 
 Todo erro é uma subclasse de `ErroMunicipiosBr` e traz: `codigo` (estável, para tratar no código), `oQue`, `motivo`, `solucao` e, quando dá, uma `sugestao` ("você quis dizer?"). A `message` junta tudo num texto pronto para mostrar.
 
@@ -307,7 +307,7 @@ A UF "XX" é inválida.
 
 ## Atualização dos dados (mantenedores)
 
-Os arquivos `src/**/*.gerado.ts` são gerados — **não edite na mão**. Para atualizar a partir da fonte:
+Os arquivos `src/**/*.gerado.ts` são gerados. **Não edite na mão**. Para atualizar a partir da fonte:
 
 ```bash
 bun run dados:atualizar   # baixa, valida, transforma e regenera + mostra o que mudou
@@ -315,7 +315,7 @@ bun run build             # recompila JS (ESM+CJS) e os tipos
 bun run verificar:build   # confere que os municípios saíram num arquivo separado
 ```
 
-O código da Receita Federal (`codigoReceitaFederal`) é derivado automaticamente do código SIAFI da fonte a cada atualização — não precisa de download extra.
+O código da Receita Federal (`codigoReceitaFederal`) é derivado automaticamente do código SIAFI da fonte a cada atualização, então não precisa de download extra.
 
 ## Créditos
 
