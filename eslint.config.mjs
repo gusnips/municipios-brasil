@@ -26,10 +26,7 @@ export default [
       // O TypeScript já checa referências indefinidas; no-undef gera falsos
       // positivos com globais de ambiente (recomendação do typescript-eslint).
       "no-undef": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { argsIgnorePattern: "^_" },
-      ],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       // Tipos de retorno são garantidos pela interface ApiMunicipios e pelo
       // strict mode; anotações explícitas seriam apenas ruído nos métodos.
       "@typescript-eslint/explicit-function-return-type": "off",
@@ -41,12 +38,7 @@ export default [
     },
   },
   {
-    files: [
-      "scripts/**/*.ts",
-      "tests/**/*.ts",
-      "vite.config.ts",
-      "eslint.config.mjs",
-    ],
+    files: ["scripts/**/*.ts", "tests/**/*.ts", "vite.config.ts", "eslint.config.mjs"],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
