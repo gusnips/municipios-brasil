@@ -4,7 +4,7 @@ import { resolve } from "path";
 // Build em dois passos: `BUILD_FORMAT=es` e depois `BUILD_FORMAT=cjs`.
 // Um formato por invocação mantém o code-splitting (e a fronteira do
 // import() dinâmico dos municípios) independente e previsível por formato.
-// As declarações de tipo são geradas à parte (tsc + rollup-plugin-dts),
+// As declarações de tipo são geradas à parte (tsdown, veja tsdown.config.mts),
 // para que cada entry tenha um .d.ts autocontido que casa com o JS empacotado.
 const formato = (process.env.BUILD_FORMAT as "es" | "cjs") ?? "es";
 const ehEs = formato === "es";
