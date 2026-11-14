@@ -25,5 +25,5 @@
     "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "tests", "scripts", "vite.config.ts", "eslint.config.mjs"]
+  "include": ["src", "tests", "scripts", "vite.config.ts"]
 }
